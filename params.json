@@ -1,0 +1,6 @@
+{
+  "name": "Go-clickhouse",
+  "tagline": "Golang ClickHouse connector (under development)",
+  "body": "# go-clickhouse\r\n\r\n[![Travis status](https://api.travis-ci.org/roistat/go-clickhouse.svg)](https://travis-ci.org/roistat/go-clickhouse)\r\n[![Coverage Status](https://coveralls.io/repos/github/roistat/go-clickhouse/badge.svg)](https://coveralls.io/github/roistat/go-clickhouse)\r\n\r\nGolang ClickHouse connector\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
