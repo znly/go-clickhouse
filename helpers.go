@@ -66,5 +66,7 @@ func BuildMultiInsert(tbl string, cols Columns, rows Rows) (Query, error) {
 
 	stmt = fmt.Sprintf("INSERT INTO %s (%s) VALUES %s", tbl, strings.Join(cols, ","), batch)
 
-	return NewQuery(stmt, args...), nil
+	q := NewQuery(stmt, args...)
+	q.NbCols = uint64(colCount)
+	return q, nil
 }

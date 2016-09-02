@@ -6,8 +6,9 @@ import (
 )
 
 type Query struct {
-	Stmt string
-	args []interface{}
+	Stmt   string
+	NbCols uint64
+	args   []interface{}
 }
 
 func (q Query) Iter(conn *Conn) *Iter {
