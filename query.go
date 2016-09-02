@@ -11,6 +11,8 @@ type Query struct {
 	args   []interface{}
 }
 
+func (q *Query) Args() []interface{} { return args }
+
 func (q Query) Iter(conn *Conn) *Iter {
 	if conn == nil {
 		return &Iter{err: errors.New("Connection pointer is nil")}
