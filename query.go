@@ -3,6 +3,8 @@ package clickhouse
 import (
 	"errors"
 	"strings"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 type Query struct {
@@ -12,6 +14,11 @@ type Query struct {
 }
 
 func (q *Query) Args() []interface{} { return q.args }
+func (q *Query) DeleteRow(rowID uint64) {
+	start, end := uint64(rowID)*q.NbCols, uint64(rowID)*q.NbCols+q.NbCols
+	q.args = append(q.args[:start], q.args[uint64(rowID)*q.NbCols+q.NbCols:]...)
+	log.Warnf("discarded data:\n%#v", q.args[start:end])
+}
 
 func (q Query) Iter(conn *Conn) *Iter {
 	if conn == nil {
