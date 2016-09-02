@@ -16,9 +16,13 @@ type Query struct {
 func (q *Query) Args() []interface{} { return q.args }
 func (q *Query) DeleteRow(rowID uint64) {
 	start, end := uint64(rowID)*q.NbCols, uint64(rowID)*q.NbCols+q.NbCols
-	q.args = append(q.args[:start], q.args[uint64(rowID)*q.NbCols+q.NbCols:]...)
+	size := len(q.args)
+	q.args = append(q.args[:start], q.args[end:]...)
 	q.Stmt = q.Stmt[:strings.LastIndex(q.Stmt, "),")+1]
-	log.Warnf("discarded data:\n%#v", q.args[start:end])
+	log.WithField("old_size", size).
+		WithField("new_size", len(q.args)).
+		WithField("diff", size-len(q.args)).
+		Warnf("discarded data:\n%#v", q.args[start:end])
 }
 
 func (q Query) Iter(conn *Conn) *Iter {
